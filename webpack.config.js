@@ -1,10 +1,12 @@
 const path = require('path');
+const webpack = require('webpack');
 
-module.exports = {    
+module.exports = {
+    devtool: 'source-map',
     entry: './src/index.js',
     output: {
-        path: __dirname + "/public",//打包后的文件存放的地方
-        filename: './build/index.js'//打包后输出文件的文件名
+        filename: './build/index.js',
+        publicPath : '/'
     },
     module: {
         loaders: [
@@ -14,5 +16,11 @@ module.exports = {
                 loader: 'babel-loader?presets[]=es2015&presets[]=react'
             }
         ]
-    }
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('production')
+        }),
+        new webpack.optimize.UglifyJsPlugin()
+    ]
 }

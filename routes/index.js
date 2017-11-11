@@ -59,7 +59,7 @@ router.post("/login", (req, res) => {
                 res.sendStatus(403);      //密码错误
             } else {
                 var user = JSON.parse(JSON.stringify(doc));
-                sess.user = user.name;
+                sess.user = user;
                 res.sendStatus(200);        //登陆成功
             }
         }

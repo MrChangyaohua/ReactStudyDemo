@@ -16,13 +16,13 @@ class Home extends Component {
     componentDidMount() {
         const { dispatch } = this.props;
         dispatch(fetchIslogin());
-        dispatch(fetchImagesIfNeeded());
+        // dispatch(fetchImagesIfNeeded());
     }
     componentWillReceiveProps(nextProps) {
         if (nextProps.selectedReddit !== this.props.selectedReddit) {
             const { dispatch } = this.props;
             dispatch(fetchIslogin());
-            dispatch(fetchImagesIfNeeded());
+            // dispatch(fetchImagesIfNeeded());
         }
     }
     render() {

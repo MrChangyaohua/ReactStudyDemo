@@ -9,12 +9,13 @@ export const CLEAR_IMAGES = "CLEAR_IMAGES"
 
 
 export const requestIslogin = () => ({
-    type: REQUEST_ISLOGIN
+    type: REQUEST_ISLOGIN,
 })
 
 export const receiveLogined = json => ({
     type: RECEIVE_LOGINED,
-    user: json.user,
+    user: json.user.name,
+    images: json.user.imageUpload,
     token: json.token
 })
 
@@ -86,17 +87,19 @@ export const fetchIslogin = () => dispatch => {
         .then(res => res.json())
         .then(json => {
             if (json.code == 200) {
-                dispatch(receiveLogined(json))
-                dispatch(requestImages())
-                return fetch("/getImages", {
-                    method: "get",
-                    credentials: 'include',
-                    header: {
-                        "Content-Type": "application/json"
-                    }
-                })
-                    .then(res => res.json())
-                    .then(json => dispatch(receiveImages(json)))
+                dispatch(receiveLogined(json));
+                // console.log(json);
+                // dispatch(requestImages());
+                // dispatch(receiveImages(json.user.imageUpload));
+                // return fetch("/getImages", {
+                //     method: "get",
+                //     credentials: 'include',
+                //     header: {
+                //         "Content-Type": "application/json"
+                //     }
+                // })
+                //     .then(res => res.json())
+                //     .then(json => dispatch(receiveImages(json)))
             } else {
                 dispatch(receiveNotLogined())
             }

@@ -4,7 +4,7 @@ import { REQUEST_ISLOGIN, RECEIVE_LOGINED, RECEIVE_NOT_LOGIN, REQUEST_IMAGES, RE
 const user = (state = "", action) => {
     switch (action.type) {
         case RECEIVE_LOGINED:
-            return action.user
+            return action.user;
         case REQUEST_ISLOGIN:
         case RECEIVE_NOT_LOGIN:
         case EXIT_LOGIN:
@@ -25,6 +25,8 @@ const token = (state = "", action) => {
 
 const images = (state = [], action) => {
     switch (action.type) {
+        case RECEIVE_LOGINED:
+        return [...state, ...action.images]
         case RECEIVE_IMAGES:
             return [...state, ...action.images]
         case UPLOAD_IMAGES:
