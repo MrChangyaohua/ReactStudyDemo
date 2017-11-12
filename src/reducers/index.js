@@ -30,9 +30,7 @@ const images = (state = [], action) => {
         case RECEIVE_IMAGES:
             return [ ...action.images]
         case UPLOAD_IMAGES:
-            return [...state, ...action.images]
-        case REQUEST_IMAGES:
-        // return "";
+            return [ ...action.images]
         default:
             return state
     }

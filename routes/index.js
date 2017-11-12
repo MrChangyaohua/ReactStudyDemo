@@ -192,13 +192,12 @@ router.get("/getImages", (req, res) => {
         } else if (doc) {
             doc = JSON.parse(JSON.stringify(doc));
             if (doc.imageUpload) {
-                imgArr = doc.imageUpload;
-                req.session.user.imageUpload = imgArr;
-                console.log(imgArr);
-                res.json(imgArr);
+                const imgArray = doc.imageUpload;
+                req.session.user.imageUpload = imgArray;
+                res.json(imgArray);
             }
         } else {
-            res.json(imgArr);
+            res.json([]);
         }
     })
 });

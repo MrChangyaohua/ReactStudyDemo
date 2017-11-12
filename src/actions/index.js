@@ -38,23 +38,10 @@ export const receiveImages = json => ({
     images: json
 })
 
-export const exitLogin = () => dispatch => {
-    return fetch("/logout", {
-        method: "post",
-        credentials: 'include',
-        header: {
-            "Content-Type": "application/json"
-        }
-    }).then(res => {
-        if (res.ok) {
-            dispatch({ type: EXIT_LOGIN });
-            dispatch({ type: CLEAR_IMAGES });
-        }
-    })
-}
+
 
 export const fetchIslogin = () => dispatch => {
-    dispatch(requestIslogin())
+    // dispatch(requestIslogin())
     return fetch("/isLogin", {
         method: "get",
         credentials: 'include',
@@ -72,8 +59,23 @@ export const fetchIslogin = () => dispatch => {
         })
 }
 
+export const exitLogin = () => dispatch => {
+    return fetch("/logout", {
+        method: "post",
+        credentials: 'include',
+        header: {
+            "Content-Type": "application/json"
+        }
+    }).then(res => {
+        if (res.ok) {
+            dispatch({ type: EXIT_LOGIN });
+            dispatch({ type: CLEAR_IMAGES });
+        }
+    })
+}
+
 export const fetchImages = () => dispatch => {
-    dispatch(requestImages())
+    // dispatch(requestImages())
     return fetch("/getImages", {
         method: "get",
         credentials: 'include',
@@ -85,20 +87,20 @@ export const fetchImages = () => dispatch => {
         .then(json => dispatch(receiveImages(json)))
 }
 
-const shouldFetchImages = state => {
-    const isLogin = state.user;
-    if (isLogin.length > 0) {
-        return true
-    }
-    return false;
-}
+// const shouldFetchImages = state => {
+//     const isLogin = state.user;
+//     if (isLogin.length > 0) {
+//         return true
+//     }
+//     return false;
+// }
 
-export const fetchImagesIfNeeded = () => (dispatch, getState) => {
-    console.log(getState());
-    if (shouldFetchImages(getState())) {
-        return dispatch(fetchImages())
-    }
-}
+// export const fetchImagesIfNeeded = () => (dispatch, getState) => {
+//     console.log(getState());
+//     if (shouldFetchImages(getState())) {
+//         return dispatch(fetchImages())
+//     }
+// }
 
 export const uploadImages = formData => dispatch => {
     return fetch("/upload", {
@@ -113,19 +115,21 @@ export const uploadImages = formData => dispatch => {
         .then(json => dispatch(receiveImages(json)))
 }
 
-export const delPicById = id => (dispatch,getState) => {
-    return fetch("/deleteImages", {
-        method: "post",
+export const delPicById = (id,token) => (dispatch,getState) => {
+    return fetch("/deleteImages",{
+        method : "POST",
         credentials: 'include',
-        header: {
-            'Content-Type': 'application/json',
-            'X-CSRF-Token': getState.token
+        headers : {
+            'Content-Type' : 'application/json',
+            'X-CSRF-Token': token
         },
-        body: JSON.stringify({
-            num: id
+        body : JSON.stringify({
+            num : id
         })
+    }).then(res => {
+        if(res.ok){
+            console.log("图片删除成功");
+        }
     })
-        .then(res => res.json())
-        .then(json => dispatch(receiveImages(json)))
 }
 
