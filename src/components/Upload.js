@@ -18,8 +18,6 @@ export default React.createClass({
         }
         //全是图片
         if(isAllImage){
-            // this.refs.formupload.submit();
-            // uploadFuc(this.refs.upload.files);
             uploadFuc(new FormData(this.refs.formupload));
         }
     },
@@ -45,7 +43,6 @@ export default React.createClass({
     },
     render() {
         let { user }  = this.props;
-        // return user.length > 0 ? this.uploadForm() : (<p></p>);
         return user != undefined ? this.uploadForm() : (<p></p>);
     }
 })

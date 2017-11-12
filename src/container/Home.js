@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { uploadImages ,fetchIslogin ,fetchImagesIfNeeded , exitLogin , fetchImages} from '../actions'
+import { uploadImages ,fetchIslogin ,fetchImagesIfNeeded , exitLogin , fetchImages, delPicById} from '../actions'
 import { render } from 'react-dom'
 import { Router, Route, hashHistory } from 'react-router'
 
@@ -9,22 +9,18 @@ import Header from '../components/Header'
 import Images from '../components/Images'
 import Upload from '../components/Upload'
 
-// data
-// import imageList from '../mock/imageList';
-
 class Home extends Component {
     componentDidMount() {
         const { dispatch } = this.props;
         dispatch(fetchIslogin());
-        // dispatch(fetchImagesIfNeeded());
     }
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.selectedReddit !== this.props.selectedReddit) {
-            const { dispatch } = this.props;
-            dispatch(fetchIslogin());
-            // dispatch(fetchImagesIfNeeded());
-        }
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.selectedReddit !== this.props.selectedReddit) {
+    //         const { dispatch } = this.props;
+    //         dispatch(fetchIslogin());
+    //         // dispatch(fetchImagesIfNeeded());
+    //     }
+    // }
     render() {
         const {user ,images, token , uploadFuc , exitLogin} = this.props;
         return (
@@ -57,11 +53,14 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         dispatch,
-        uploadFuc : (images) => {
-            dispatch(uploadImages(images))
+        uploadFuc : (formData) => {
+            dispatch(uploadImages(formData))
         },
         exitLogin : () => {
             dispatch(exitLogin())
+        },
+        delPicFuc : (id) => {
+            dispatch(delPicById(id))
         }
     }
 }

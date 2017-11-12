@@ -100,23 +100,32 @@ export const fetchImagesIfNeeded = () => (dispatch, getState) => {
     }
 }
 
-export const uploadImages = images => dispatch => {
-    // let formData = new FormData(images);
-    // let image = images[0];
-    // formData.append({"name" : 'upload', 'filename': image.name, 'Content-Type': image.type});
+export const uploadImages = formData => dispatch => {
     return fetch("/upload", {
         method: "post",
         credentials: 'include',
         header: {
             "Content-Type": "multipart/form-data"
         },
-        body: images
+        body: formData
     })
-        .then(res => res.json()
-        )
-        .then(json =>
-            dispatch(receiveImages(json))
-        // console.log("上传图片后返回的数据" + JSON.stringify((json)))
-        )
+        .then(res => res.json())
+        .then(json => dispatch(receiveImages(json)))
+}
+
+export const delPicById = id => (dispatch,getState) => {
+    return fetch("/deleteImages", {
+        method: "post",
+        credentials: 'include',
+        header: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': getState.token
+        },
+        body: JSON.stringify({
+            num: id
+        })
+    })
+        .then(res => res.json())
+        .then(json => dispatch(receiveImages(json)))
 }
 
