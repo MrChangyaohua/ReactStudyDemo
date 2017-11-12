@@ -172,11 +172,12 @@ router.post("/upload", (req, res) => {
                 }, (err) => {
                     if (err) {
                         res.send(500);
+                    } else{
+                        req.session.user.imageUpload = imgArr;
+                        console.log("上传图片后的数组" + JSON.stringify(imgArr));
+                        res.json(imgArr);
                     }
                 })
-            req.session.user.imageUpload = imgArr;
-            res.json(imgArr);
-            // res.redirect("/");
         })
     }
 });
@@ -194,6 +195,7 @@ router.get("/getImages", (req, res) => {
             if (doc.imageUpload) {
                 const imgArray = doc.imageUpload;
                 req.session.user.imageUpload = imgArray;
+                console.log("获取图片后的数组" + JSON.stringify(imgArray));                
                 res.json(imgArray);
             }
         } else {

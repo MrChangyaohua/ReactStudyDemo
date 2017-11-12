@@ -47,6 +47,7 @@ router.post("/deleteImages",(req,res) => {
             res.send(500);
         }else{
             req.session.user.imageUpload = imgArr;
+            console.log("删除图片后的数组" + JSON.stringify(imgArr));            
             res.send(200);
         }
     })
