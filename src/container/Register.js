@@ -80,7 +80,7 @@ export default React.createClass({
                         <li><input name="username" ref="username" value={this.state.uasername} placeholder="请输入用户名" type="text" onChange={this.handleChange} /></li>
                         <li><input name="password" ref="password" value={this.state.password} placeholder="请输入密码" type="password" onChange={this.handleChange} /></li>
                         <li><input name="rePassword" ref="rePassword" value={this.state.rePassword} placeholder="请再次输入密码" type="password" onChange={this.handleChange} /></li>
-                        <li><input name="telephone" ref="telephone" value={this.state.telephone} placeholder="请输入电话号码" type="text" onChange={this.handleChange} /></li>
+                        <li><input name="telephone" ref="telephone" value={this.state.telephone} placeholder="请输入电话号码" type="number" onChange={this.handleChange} /></li>
                         <li><input name="email" ref="email" value={this.state.email} placeholder="请输入您的邮箱" type="email" onChange={this.handleChange} /></li>
                         <li><input name="login" value="注册" ref="login" type="submit" onClick={this.handleClick} className="box_btn" /> </li>
                         <li><p className="err" ref="err"></p></li>

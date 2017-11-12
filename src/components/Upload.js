@@ -45,6 +45,7 @@ export default React.createClass({
     },
     render() {
         let { user }  = this.props;
-        return user.length > 0 ? this.uploadForm() : (<p></p>);
+        // return user.length > 0 ? this.uploadForm() : (<p></p>);
+        return user != undefined ? this.uploadForm() : (<p></p>);
     }
 })

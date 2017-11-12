@@ -10,7 +10,7 @@ export default React.createClass ({
             <header>
                 <h1><Link to="/">基于React实现的前后端分离图片上传系统</Link></h1>
                 <nav>                     
-                    { this.props.user != "" ? this.renderLoginedBtn() : this.renderNotLoginBtn() }
+                    { this.props.user != undefined ? this.renderLoginedBtn() : this.renderNotLoginBtn() }
                 </nav>
             </header>
         )
@@ -24,11 +24,15 @@ export default React.createClass ({
         )
     },
     renderLoginedBtn(name) {
+        var path = {
+            pathname:'/user_modify',
+            state:this.props.user,
+          }
         return (
             <ul>    
-                <li><p className="name">{this.props.user}</p></li>
-                <li><Link to="/user_modify" onClick={this.logout}>设置</Link></li>
-                <li><Link to="/login" onClick={this.logout}>退出</Link></li>
+                <li><p className="name">{this.props.user.name}</p></li>
+                <li><Link to={path} onClick={this.logout}>设置</Link></li>
+                <li><Link to='/login' onClick={this.logout}>退出</Link></li>
             </ul>
         )
     }

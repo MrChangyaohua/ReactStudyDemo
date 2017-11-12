@@ -15,7 +15,7 @@ export const requestIslogin = () => ({
 
 export const receiveLogined = json => ({
     type: RECEIVE_LOGINED,
-    user: json.user.name,
+    user: json.user,
     images: json.user.imageUpload,
     token: json.token
 })

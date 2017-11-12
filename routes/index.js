@@ -69,15 +69,14 @@ router.post("/login", (req, res) => {
 // 用户信息修改
 router.post("/user_modify", (req, res) => {
     var User = global.dbHandle.getModel("users");
-    var uname = req.body.uname,
+    var name = req.body.name,
         telephone = req.body.telephone,
         email = req.body.email,
         result = {};
 
     //修改用户信息数据库操作
-    var whereStr = { 'name': uname };
+    var whereStr = { 'name': name };
     var modifyStr = {
-        name: uname,
         telephone: telephone,
         email: email
     };
@@ -93,9 +92,26 @@ router.post("/user_modify", (req, res) => {
     })
 });
 
+//用户删除
+router.post("/user_delete", (req, res) => {
+    var User = global.dbHandle.getModel("users"),
+     whereStr = { name: req.body.name };
+
+    User.remove(whereStr, (err) => {
+        if (err) {
+            res.send(500);
+        } else {
+            req.session.user = null;
+            req.session.token = null;
+            res.send(200);
+        }
+    })
+});
+
 //退出登陆
 router.post("/logout", (req, res) => {
     req.session.user = null;
+    req.session.token = null;
     res.send("200");
 });
 

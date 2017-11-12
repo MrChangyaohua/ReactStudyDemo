@@ -50,7 +50,9 @@ export default React.createClass({
             }).then((res) => {
                 if(res.ok){
                     this.refs.err.innerHTML = "登陆成功！";
-                    this.context.router.push("/home");
+                    setTimeout(()=>{
+                        this.context.router.push("/home");                        
+                    },1000);
                 }else{
                     if(res.status == 404){
                         this.refs.username.focus();

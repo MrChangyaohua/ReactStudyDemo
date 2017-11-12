@@ -26,7 +26,7 @@ class Home extends Component {
         }
     }
     render() {
-        const {user ,images , token , uploadFuc , exitLogin} = this.props;
+        const {user ,images, token , uploadFuc , exitLogin} = this.props;
         return (
             <div>
                 <Header user={user} exitLogin={exitLogin} />
@@ -40,7 +40,7 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-    user : PropTypes.string.isRequired,
+    user : PropTypes.object.isRequired,
     images : PropTypes.arrayOf(PropTypes.shape({
         imgUrl : PropTypes.string.isRequired,
         name : PropTypes.string.isRequired
@@ -51,8 +51,8 @@ Home.propTypes = {
 }
 
 const mapStateToProps = state => {
-    const { user , images , token} = state;
-    return { user , images , token};
+    const { user , images , token } = state;
+    return { user , images , token };
 }
 const mapDispatchToProps = dispatch => {
     return {
