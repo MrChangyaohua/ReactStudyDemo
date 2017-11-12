@@ -33,7 +33,7 @@ router.post("/register", (req, res) => {
                     res.send(500);
                 } else {
                     var user = JSON.parse(JSON.stringify(doc));
-                    req.session.user = user.name;
+                    req.session.user = user;
                     res.send(200);  //注册成功
                 }
             })
@@ -87,7 +87,7 @@ router.post("/user_modify", (req, res) => {
             res.send(500);
         } else {
             var user = JSON.parse(JSON.stringify(doc));
-            req.session.user = user.name;
+            req.session.user = user;
             res.send(200);  //注册成功
         }
     })
@@ -96,7 +96,6 @@ router.post("/user_modify", (req, res) => {
 //退出登陆
 router.post("/logout", (req, res) => {
     req.session.user = null;
-    req.session.imgUrl = null;
     res.send("200");
 });
 
@@ -108,7 +107,7 @@ router.post("/upload", (req, res) => {
         filesArr = [],
         extName = '',
         times = new Date().getTime(),
-        imgArr = req.session.imgArr == undefined ? [] : req.session.imgArr;
+        imgArr = req.session.user.imageUpload == undefined ? [] : req.session.user.imageUpload;
 
     form.encoding = 'utf-8';        //设置编码
     form.uploadDir = targetDir;     //设置上传目录
@@ -148,17 +147,19 @@ router.post("/upload", (req, res) => {
                 imgArr.push({ imgUrl: `/public/uploadImages/${fileName}`, name: fileOleName });
             }
 
-            User.update({
-                name: req.session.user
-            }, {
+            User.update(
+                {
+                    name: req.session.user.name
+                },
+                {
                     imageUpload: imgArr
                 }, (err) => {
                     if (err) {
                         res.send(500);
                     }
                 })
-            req.session.imgArr = imgArr;
-            res.sendStatus(200);
+            req.session.user.imageUpload = imgArr;
+            res.json(imgArr);
             // res.redirect("/");
         })
     }
@@ -167,10 +168,8 @@ router.post("/upload", (req, res) => {
 //获取图片
 router.get("/getImages", (req, res) => {
     var User = global.dbHandle.getModel("users");
-    var imgArr = req.session.imgArr == undefined ? [] : req.session.imgArr;
-
     User.findOne({
-        name: req.session.user
+        name: req.session.user.name
     }, (err, doc) => {
         if (err) {
             res.send(404);
@@ -178,7 +177,7 @@ router.get("/getImages", (req, res) => {
             doc = JSON.parse(JSON.stringify(doc));
             if (doc.imageUpload) {
                 imgArr = doc.imageUpload;
-                req.session.imgArr = imgArr;
+                req.session.user.imageUpload = imgArr;
                 console.log(imgArr);
                 res.json(imgArr);
             }

@@ -18,27 +18,9 @@ export default React.createClass({
         }
         //全是图片
         if(isAllImage){
-            this.refs.formupload.submit();
-            setTimeout(function(){
-                location.reload();
-            },500)
-            // 本地读取
-            // for(let val of this.refs.upload.files){
-            //     let ofReader = new FileReader();
-            //     let newImageArr = [];
-
-            //     ofReader.readAsDataURL(val);
-            //     ofReader.onload = function(e){
-            //         var img = {
-            //             imgUrl : e.target.result,
-            //             name : val.name
-            //         };
-            //         newImageArr.push(img);
-            //         uploadFuc(newImageArr)
-            //     }
-            // }
-            // uploadFuc()
-
+            // this.refs.formupload.submit();
+            // uploadFuc(this.refs.upload.files);
+            uploadFuc(new FormData(this.refs.formupload));
         }
     },
     showErr(errStr,time){

@@ -25,7 +25,7 @@ router.get("/isLogin",(req,res) => {
 router.post("/deleteImages",(req,res) => {
     var User = global.dbHandle.getModel("users"),
         num = req.body.num,
-        imgArr = req.session.imgArr,
+        imgArr = req.session.user.imageUpload,
         imgUrl = imgArr[num].imgUrl,
         filePath = imgUrl.substring(1);
 
@@ -39,14 +39,14 @@ router.post("/deleteImages",(req,res) => {
     imgArr.splice(num,1);
 
     User.update({
-        name : req.session.user
+        name : req.session.user.name
     },{
         imageUpload : imgArr
     },(err) => {
         if(err){
             res.send(500);
         }else{
-            req.session.imgArr = imgArr;
+            req.session.user.imageUpload = imgArr;
             res.send(200);
         }
     })

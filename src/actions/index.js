@@ -4,6 +4,7 @@ export const RECEIVE_NOT_LOGIN = "RECEIVE_NOT_LOGIN"
 export const REQUEST_IMAGES = "REQUEST_IMAGES"
 export const RECEIVE_IMAGES = "RECEIVE_IMAGES"
 export const UPLOAD_IMAGES = "UPLOAD_IMAGES"
+export const UPDATE_IMAGES = "UPDATE_IMAGES"
 export const EXIT_LOGIN = "EXIT_LOGIN"
 export const CLEAR_IMAGES = "CLEAR_IMAGES"
 
@@ -27,6 +28,11 @@ export const requestImages = () => ({
     type: REQUEST_IMAGES
 })
 
+export const updateImages = json => ({
+    type: UPDATE_IMAGES,
+    images: json
+})
+
 export const receiveImages = json => ({
     type: RECEIVE_IMAGES,
     images: json
@@ -47,34 +53,6 @@ export const exitLogin = () => dispatch => {
     })
 }
 
-// export const fetchUserInfoById = () => dispatch => {
-//     return fetch("/isLogin", {
-//         method: "get",
-//         credentials: 'include',
-//         header: {
-//             "Content-Type": "application/json"
-//         }
-//     })
-//         .then(res => res.json())
-//         .then(json => {
-//             if (json.code == 200) {
-//                 dispatch(receiveLogined(json))
-//                 dispatch(requestImages())
-//                 return fetch("/getImages", {
-//                     method: "get",
-//                     credentials: 'include',
-//                     header: {
-//                         "Content-Type": "application/json"
-//                     }
-//                 })
-//                     .then(res => res.json())
-//                     .then(json => dispatch(receiveImages(json)))
-//             } else {
-//                 dispatch(receiveNotLogined())
-//             }
-//         })
-// }
-
 export const fetchIslogin = () => dispatch => {
     dispatch(requestIslogin())
     return fetch("/isLogin", {
@@ -88,18 +66,6 @@ export const fetchIslogin = () => dispatch => {
         .then(json => {
             if (json.code == 200) {
                 dispatch(receiveLogined(json));
-                // console.log(json);
-                // dispatch(requestImages());
-                // dispatch(receiveImages(json.user.imageUpload));
-                // return fetch("/getImages", {
-                //     method: "get",
-                //     credentials: 'include',
-                //     header: {
-                //         "Content-Type": "application/json"
-                //     }
-                // })
-                //     .then(res => res.json())
-                //     .then(json => dispatch(receiveImages(json)))
             } else {
                 dispatch(receiveNotLogined())
             }
@@ -134,8 +100,23 @@ export const fetchImagesIfNeeded = () => (dispatch, getState) => {
     }
 }
 
-export const uploadImages = images => ({
-    type: UPLOAD_IMAGES,
-    images
-})
+export const uploadImages = images => dispatch => {
+    // let formData = new FormData(images);
+    // let image = images[0];
+    // formData.append({"name" : 'upload', 'filename': image.name, 'Content-Type': image.type});
+    return fetch("/upload", {
+        method: "post",
+        credentials: 'include',
+        header: {
+            "Content-Type": "multipart/form-data"
+        },
+        body: images
+    })
+        .then(res => res.json()
+        )
+        .then(json =>
+            dispatch(receiveImages(json))
+        // console.log("上传图片后返回的数据" + JSON.stringify((json)))
+        )
+}
 

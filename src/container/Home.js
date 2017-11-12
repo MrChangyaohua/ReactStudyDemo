@@ -57,8 +57,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         dispatch,
-        uploadFuc : () => {
-            dispatch(fetchImages())
+        uploadFuc : (images) => {
+            dispatch(uploadImages(images))
         },
         exitLogin : () => {
             dispatch(exitLogin())
