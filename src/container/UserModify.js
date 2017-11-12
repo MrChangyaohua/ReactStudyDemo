@@ -41,7 +41,7 @@ export default React.createClass({
                 }, 1000)
             } 
         }, (err) => {
-            this.refs.err("修改失败");
+            this.refs.err.innerHTML("修改失败");
             this.context.router.push("/modify")
         })
     },

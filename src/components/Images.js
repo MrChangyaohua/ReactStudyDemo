@@ -20,7 +20,7 @@ export default React.createClass({
         var num = e.target.getAttribute("data-id"),
             url = "/deleteImages",
             parents = e.target.parentNode.parentNode,
-            token = this.props.token;
+            {token} = this.props;
 
         let isDelete = confirm("确定删除这张图片吗？");
 

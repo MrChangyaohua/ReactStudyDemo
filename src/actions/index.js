@@ -1,17 +1,10 @@
-export const REQUEST_ISLOGIN = "REQUEST_ISLOGIN"
+
 export const RECEIVE_LOGINED = "RECEIVE_LOGINED"
 export const RECEIVE_NOT_LOGIN = "RECEIVE_NOT_LOGIN"
-export const REQUEST_IMAGES = "REQUEST_IMAGES"
 export const RECEIVE_IMAGES = "RECEIVE_IMAGES"
-export const UPLOAD_IMAGES = "UPLOAD_IMAGES"
-export const UPDATE_IMAGES = "UPDATE_IMAGES"
 export const EXIT_LOGIN = "EXIT_LOGIN"
-export const CLEAR_IMAGES = "CLEAR_IMAGES"
 
 
-export const requestIslogin = () => ({
-    type: REQUEST_ISLOGIN,
-})
 
 export const receiveLogined = json => ({
     type: RECEIVE_LOGINED,
@@ -24,15 +17,6 @@ export const receiveNotLogined = () => ({
     type: RECEIVE_NOT_LOGIN
 })
 
-export const requestImages = () => ({
-    type: REQUEST_IMAGES
-})
-
-export const updateImages = json => ({
-    type: UPDATE_IMAGES,
-    images: json
-})
-
 export const receiveImages = json => ({
     type: RECEIVE_IMAGES,
     images: json
@@ -41,7 +25,6 @@ export const receiveImages = json => ({
 
 
 export const fetchIslogin = () => dispatch => {
-    // dispatch(requestIslogin())
     return fetch("/isLogin", {
         method: "get",
         credentials: 'include',
@@ -69,13 +52,11 @@ export const exitLogin = () => dispatch => {
     }).then(res => {
         if (res.ok) {
             dispatch({ type: EXIT_LOGIN });
-            dispatch({ type: CLEAR_IMAGES });
         }
     })
 }
 
-export const fetchImages = () => dispatch => {
-    // dispatch(requestImages())
+export const  fetchImages = () => dispatch => {
     return fetch("/getImages", {
         method: "get",
         credentials: 'include',

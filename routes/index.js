@@ -85,8 +85,8 @@ router.post("/user_modify", (req, res) => {
         if (err) {
             res.send(500);
         } else {
-            var user = JSON.parse(JSON.stringify(doc));
-            req.session.user = user;
+            req.session.user.telephone = telephone;
+            req.session.user.email = email;
             res.send(200);  //注册成功
         }
     })
