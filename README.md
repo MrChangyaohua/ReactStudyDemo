@@ -1,7 +1,7 @@
 # react_demo_study
 
 ### 目的
- 用于入门学习React+Redux前端开发技术
+ 用于入门学习React+Redux+router前端开发
 
 ### 基本功能
  1. 用户的登陆，注册，注销，删除
