@@ -68,21 +68,6 @@ export const  fetchImages = () => dispatch => {
         .then(json => dispatch(receiveImages(json)))
 }
 
-// const shouldFetchImages = state => {
-//     const isLogin = state.user;
-//     if (isLogin.length > 0) {
-//         return true
-//     }
-//     return false;
-// }
-
-// export const fetchImagesIfNeeded = () => (dispatch, getState) => {
-//     console.log(getState());
-//     if (shouldFetchImages(getState())) {
-//         return dispatch(fetchImages())
-//     }
-// }
-
 export const uploadImages = formData => dispatch => {
     return fetch("/upload", {
         method: "post",
@@ -96,7 +81,7 @@ export const uploadImages = formData => dispatch => {
         .then(json => dispatch(receiveImages(json)))
 }
 
-export const delPicById = (id,token) => (dispatch,getState) => {
+export const delPicById = (id,token) => (dispatch) => {
     return fetch("/deleteImages",{
         method : "POST",
         credentials: 'include',
@@ -110,6 +95,7 @@ export const delPicById = (id,token) => (dispatch,getState) => {
     }).then(res => {
         if(res.ok){
             console.log("图片删除成功");
+            dispatch(fetchImages());
         }
     })
 }

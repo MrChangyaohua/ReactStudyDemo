@@ -4,7 +4,7 @@
   "description": "基于React实现的前后端分离图片上传系统",
   "main": "./src/index.js",
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start": "npm run start:prod",
     "start:dev": "webpack-dev-server --inline --content-base . --histroy-api-fallback",
     "start:prod": "webpack && node server.js"
   },

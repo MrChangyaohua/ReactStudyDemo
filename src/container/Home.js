@@ -16,13 +16,13 @@ class Home extends Component {
     }
    
     render() {
-        const {user ,images, token , uploadFuc , exitLogin, delPicFuc, updateImgsFuc} = this.props;
+        const {user ,images, token , uploadFuc , exitLogin, delPicById, updateImgsFuc} = this.props;
         return (
             <div>
                 <Header user={user} exitLogin={exitLogin} />
                 <div className="container">
                     <Upload user={user} imageList={images} uploadFuc={uploadFuc} />
-                    <Images imageList={images} token={token} updateImgsFuc={updateImgsFuc}/>
+                    <Images imageList={images} token={token} delPicById={delPicById}/>
                 </div>
             </div>
         )
@@ -54,11 +54,8 @@ const mapDispatchToProps = dispatch => {
         exitLogin : () => {
             dispatch(exitLogin())
         },
-        // delPicFuc : (id,token) => {
-        //     dispatch(delPicById(id))
-        // }
-        updateImgsFuc : () => {
-            dispatch(fetchImages())
+        delPicById : (id,token) => {
+            dispatch(delPicById(id,token))
         }
 
     }

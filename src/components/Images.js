@@ -17,29 +17,12 @@ export default React.createClass({
     },
     handleDelete(e){
         e.preventDefault();
-        var num = e.target.getAttribute("data-id"),
-            url = "/deleteImages",
-            parents = e.target.parentNode.parentNode,
-            {token} = this.props;
+        var num = e.target.getAttribute("data-id");
 
         let isDelete = confirm("确定删除这张图片吗？");
 
         if(isDelete){
-            fetch(url,{
-                method : "POST",
-                credentials: 'include',
-                headers : {
-                    'Content-Type' : 'application/json',
-                    'X-CSRF-Token': token
-                },
-                body : JSON.stringify({
-                    num : num
-                })
-            }).then(res => {
-                if(res.ok){
-                    this.props.updateImgsFuc();
-                }
-            })
+            this.props.delPicById(num,this.props.token);
         }
     },
     render() {

@@ -174,7 +174,6 @@ router.post("/upload", (req, res) => {
                         res.send(500);
                     } else{
                         req.session.user.imageUpload = imgArr;
-                        console.log("上传图片后的数组" + JSON.stringify(imgArr));
                         res.json(imgArr);
                     }
                 })
@@ -194,8 +193,7 @@ router.get("/getImages", (req, res) => {
             doc = JSON.parse(JSON.stringify(doc));
             if (doc.imageUpload) {
                 const imgArray = doc.imageUpload;
-                req.session.user.imageUpload = imgArray;
-                console.log("获取图片后的数组" + JSON.stringify(imgArray));                
+                req.session.user.imageUpload = imgArray;              
                 res.json(imgArray);
             }
         } else {
