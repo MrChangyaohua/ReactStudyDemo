@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { uploadImages ,fetchIslogin ,fetchImagesIfNeeded , exitLogin , fetchImages, delPicById, imagesChange} from '../actions'
+import { uploadImages ,fetchIslogin ,fetchImagesIfNeeded , exitLogin , fetchImages, delPicById} from '../actions'
 import { render } from 'react-dom'
 import { Router, Route, hashHistory } from 'react-router'
 
@@ -14,13 +14,7 @@ class Home extends Component {
         const { dispatch } = this.props;
         dispatch(fetchIslogin());
     }
-    // componentWillReceiveProps(nextProps) {
-    //     if (nextProps.selectedReddit !== this.props.selectedReddit) {
-    //         const { dispatch } = this.props;
-    //         dispatch(fetchIslogin());
-    //         // dispatch(fetchImagesIfNeeded());
-    //     }
-    // }
+   
     render() {
         const {user ,images, token , uploadFuc , exitLogin, delPicFuc, updateImgsFuc} = this.props;
         return (
@@ -50,6 +44,7 @@ const mapStateToProps = state => {
     const { user , images , token } = state;
     return { user , images , token };
 }
+
 const mapDispatchToProps = dispatch => {
     return {
         dispatch,
@@ -63,7 +58,7 @@ const mapDispatchToProps = dispatch => {
         //     dispatch(delPicById(id))
         // }
         updateImgsFuc : () => {
-            dispatch(imagesChange())
+            dispatch(fetchImages())
         }
 
     }

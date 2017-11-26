@@ -37,7 +37,7 @@ export default React.createClass({
                 })
             }).then(res => {
                 if(res.ok){
-                    this.refs.imgbox.removeChild(parents);
+                    this.props.updateImgsFuc();
                 }
             })
         }
